@@ -1,12 +1,71 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
+import Home from "./pages/home/Home";
+import ErrorPage from "./error-page";
+import SignUp from "./pages/signup/SignUp";
+import Main from "./pages/main/Main";
+import SignIn from "./pages/signin/SignIn";
+import Basket from "./pages/basket/Basket";
+import Order from "./pages/order/Order";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+// const Router = () => {
+//     return (
+//         <BrowserRouter>
+//             <Routes>
+//                 <Route
+//                     path="/"
+//                     element={<Home />}
+//                 />
+//                 <Route
+//                     path="/signup"
+//                     element={<SignUp />}
+//                 ></Route>
+//                 <Route
+//                     path="/main"
+//                     element={<Main />}
+//                 ></Route>
+//                 <Route
+//                     path="/signin"
+//                     element={<SignIn />}
+//                 ></Route>
+//             </Routes>
+//         </BrowserRouter>
+//     );
+// };
+
+const Router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Home />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/main",
+        element: <Main />,
+    },
+    {
+        path: "/signup",
+        element: <SignUp />,
+    },
+    {
+        path: "/signin",
+        element: <SignIn />,
+    },
+    {
+        path: "basket",
+        element: <Basket />,
+    },
+    {
+        path: "order",
+        element: <Order />,
+    },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <App />
+        <RouterProvider router={Router} />
     </React.StrictMode>
 );
 
