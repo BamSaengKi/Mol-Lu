@@ -48,7 +48,7 @@ function Main() {
                     to="/main"
                     className="main_logo"
                 >
-                    몰?루
+                    MOL?LU
                 </Link>
                 <form
                     className="search_area"

@@ -14,7 +14,7 @@ function Home() {
     return (
         <div className="frame">
             <div className="main">
-                <div className="logo">몰?루</div>
+                <div className="logo">MOL?LU</div>
                 <div className="navbar_menu">
                     <form
                         className="search_form"
