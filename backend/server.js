@@ -26,19 +26,19 @@ app.get("/tbCustomer", (req, res) => {
     });
 });
 
-app.get("/search", (req, res) => {
-    const serachTerm = req.query.q;
-    const sql = `SELECT * FROM tbBooks WHERE bookName LIKE ?`;
-    db.query(sql, [`%${serachTerm}%`, `%${serachTerm}%`], (err, results) => {
-        if (err) throw err;
-        res.json(results);
-    });
-});
+// app.get("/search", (req, res) => {
+//     const serachTerm = req.query.q;
+//     const sql = `SELECT * FROM tbBooks WHERE bookName LIKE ?`;
+//     db.query(sql, [`%${serachTerm}%`, `%${serachTerm}%`], (err, results) => {
+//         if (err) throw err;
+//         res.json(results);
+//     });
+// });
 
 app.get("/search", (req, res) => {
     const serachTerm = req.query.q;
-    const sql = `SELECT * FROM tbBooks WHERE bookName LIKE ?`;
-    db.query(sql, [`%${serachTerm}%`, `%${serachTerm}%`], (err, results) => {
+    const sql = `SELECT * FROM tbBooks WHERE bookName LIKE ? OR bookID LIKE ? OR author LIKE ?`;
+    db.query(sql, [`%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`], (err, results) => {
         if (err) return err;
         res.json(results);
     });

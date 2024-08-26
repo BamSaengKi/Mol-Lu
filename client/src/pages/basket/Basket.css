@@ -93,22 +93,37 @@
     width: 900px;
     height: auto;
     margin-left: 45px;
+    padding-top: 2%;
 }
 .basket_main_left {
     width: 600px;
 }
 .basket_table {
     width: 600px;
-    border: 1px solid rgba(196, 196, 196, 0.5);
-    border-radius: 5px;
 }
 
+tr,
+table,
+th {
+    border: 1px solid rgba(196, 196, 196, 0.5);
+    border-radius: 5px;
+    border-collapse: collapse;
+}
+.table_title {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    border: none;
+}
 .table_title1 {
     width: 100%;
     font-size: x-large;
     font-weight: 600;
 }
-.table_title2 {
-    width: 100%;
-    font-weight: lighter;
+
+.book_info1 {
+    width: 200px;
+}
+.book_info3 {
+    width: 400px;
 }
