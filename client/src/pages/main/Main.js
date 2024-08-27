@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Main.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../util/util";
 
 function Main() {
     const location = useLocation();
@@ -13,7 +14,7 @@ function Main() {
         const fetchResults = async () => {
             if (query) {
                 try {
-                    const res = await fetch(`http://localhost:8800/search?q=${query}`);
+                    const res = await fetch(`${BASE_URL}/search?q=${query}`);
                     if (!res.ok) {
                         throw new Error("Newtork response was not ok");
                     }

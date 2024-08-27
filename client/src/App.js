@@ -1,7 +1,7 @@
 // import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import Home from "./pages/home/Home";
-import SignUp from "./pages/signup/SignUp";
 
 function App() {
     return <Home />;
