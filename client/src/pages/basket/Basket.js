@@ -47,12 +47,17 @@ function Basket() {
                         <div className="basket_main_left">
                             <table className="basket_table">
                                 <tr className="table_title">
-                                    <span className="table_title1">몰루 배송 상품</span>
-                                    <span className="table_title2">&nbsp;무료배송</span>
+                                    <div>
+                                        <span className="table_title1">몰루 배송 상품</span>
+                                        <span className="table_title2">&nbsp;무료배송</span>
+                                    </div>
                                 </tr>
                                 <tr>
                                     <td className="book_info1">
-                                        <input type="checkbox" />
+                                        <input
+                                            className="select_box"
+                                            type="checkbox"
+                                        />
                                         <span>asdf</span>
                                     </td>
                                     <td className="book_info3">
