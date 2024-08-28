@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 dotenv = require("dotenv").config();
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
@@ -19,13 +19,20 @@ app.get("/", (req, res) => {
     return res.json("Backend is connected");
 });
 
-app.get("/tbCustomer", (req, res) => {
-    const sql = "select * from tbCustomer";
-    db.query(sql, (err, data) => {
-        if (err) return res.json(err);
-        return res.json(data);
-    });
-});
+// app.get("/tbCustomer", (req, res) => {
+//     const sql = "select * from tbCustomer";
+//     db.getConnection((error, conn) => {
+//         conn.query(sql, (err, data) => {
+//             if (!err) {
+//                 console.log(data);
+//                 return res.json(data);
+//                 conn.release();
+//             } else {
+//                 return res.json(err);
+//             }
+//         });
+//     });
+// });
 
 // app.get("/search", (req, res) => {
 //     const serachTerm = req.query.q;
@@ -39,9 +46,20 @@ app.get("/tbCustomer", (req, res) => {
 app.get("/search", (req, res) => {
     const serachTerm = req.query.q;
     const sql = `SELECT * FROM tbBooks WHERE bookName LIKE ? OR bookID LIKE ? OR author LIKE ?`;
-    db.query(sql, [`%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`], (err, results) => {
-        if (err) return err;
-        res.json(results);
+    db.getConnection((error, connection) => {
+        connection.query(
+            sql,
+            [`%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`],
+            (err, results) => {
+                if (!err) {
+                    res.json(results);
+                    console.log(results);
+                    connection.release();
+                } else {
+                    return err;
+                }
+            }
+        );
     });
 });
 

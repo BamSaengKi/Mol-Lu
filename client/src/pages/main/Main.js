@@ -5,10 +5,8 @@ import { BASE_URL } from "../../util/util";
 
 function Main() {
     const location = useLocation();
-    const [data, setData] = useState([]);
     const [results, setResults] = useState([]);
     const query = location.state?.query || "";
-    const dataa = location.state?.dataa || "";
 
     useEffect(() => {
         const fetchResults = async () => {
