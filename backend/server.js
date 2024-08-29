@@ -55,7 +55,9 @@ app.get("/search", (req, res) => {
                     res.json(results);
                     console.log(results);
                     connection.release();
+                    console.log(error);
                 } else {
+                    console.log(error);
                     return err;
                 }
             }
