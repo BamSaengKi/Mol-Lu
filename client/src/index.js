@@ -9,6 +9,7 @@ import Main from "./pages/main/Main";
 import SignIn from "./pages/signin/SignIn";
 import Basket from "./pages/basket/Basket";
 import Order from "./pages/order/Order";
+import MyPage from "./pages/home/mypage/MyPage";
 
 // const Router = () => {
 //     return (
@@ -60,6 +61,10 @@ const Router = createBrowserRouter([
     {
         path: "order",
         element: <Order />,
+    },
+    {
+        path: "mypage",
+        element: <MyPage />,
     },
 ]);
 

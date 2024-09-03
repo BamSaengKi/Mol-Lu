@@ -47,17 +47,21 @@ app.get("/search", (req, res) => {
     const serachTerm = req.query.q;
     const sql = `SELECT * FROM tbBooks WHERE bookName LIKE ? OR bookID LIKE ? OR author LIKE ?`;
     db.getConnection((error, connection) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log(1);
+
         connection.query(
             sql,
             [`%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`, `%${serachTerm}%`],
             (err, results) => {
                 if (!err) {
                     res.json(results);
+                    console.log(serachTerm);
                     console.log(results);
                     connection.release();
-                    console.log(error);
                 } else {
-                    console.log(error);
                     return err;
                 }
             }

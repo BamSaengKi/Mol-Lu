@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Main.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { BASE_URL } from "../../util/util";
 
 function Main() {
@@ -77,7 +77,7 @@ function Main() {
                     </Link>
                     <div>|</div>
                     <Link
-                        to="/"
+                        to="/mypage"
                         className="main_top_menu"
                     >
                         마이페이지

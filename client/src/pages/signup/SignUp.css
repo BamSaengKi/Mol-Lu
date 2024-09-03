@@ -1,0 +1,14 @@
+.SignUp_Main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.SignUp_Main_Input {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
