@@ -5,9 +5,12 @@ var pool = require("../config/DbConfig");
 // 유저 등록
 router.post("/", (req, res, next) => {
     const body = req.body;
+    const name = body.name;
+    const customerID = body.customerID;
+    const customerPassword = body.customerPassword;
     pool.getConnection((err, conn) => {
         if (err) {
-            throw err;
+            res.send(err);
         }
         console.log("연결은 돼따");
         const sql = `
@@ -17,29 +20,30 @@ router.post("/", (req, res, next) => {
     VALUES
         (?, ?, ?);
     `;
-        const name = req.body.name;
-        const customerID = req.body.customerID;
-        const customerPassword = req.body.customerPassword;
 
-        conn.query(sql, [name, customerID, customerPassword], (err, results) => {
-            if (!err) {
+        conn.query(sql, [name, customerID, customerPassword], (err2, results) => {
+            if (!err2) {
                 console.log(body);
                 console.log(results);
                 conn.release();
-                res.results = results;
+                res.send(results);
             } else {
-                return err;
+                if (err.code === "ER_DUP_ENTRY") {
+                    return res.status(400).json({ error: "이미 존재하는 사용자입니다." });
+                }
+                return res.status(500).json({ error: "사용자 등록 실패" });
             }
         });
     });
-    res.send(req.body);
 });
 
 // 유저 검색
 router.get(
     "/",
     function (req, res, next) {
-        const query = req.query.q;
+        const body = req.body;
+        const customerID = body.customerID;
+        const customerPassword = body.customerPassword;
         pool.getConnection((err, conn) => {
             if (err) {
                 console.log("DB");
@@ -57,7 +61,7 @@ router.get(
         OR
             tbc.customerID LIKE ? ;
       `;
-            conn.query(sql, [`%${query}`, `%${query}`], (err, results) => {
+            conn.query(sql, [customerID, customerPassword], (err, results) => {
                 if (!err) {
                     console.log(query);
                     console.log(results);

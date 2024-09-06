@@ -70,7 +70,7 @@ router.get(
                     console.log(query);
                     console.log(results);
                     conn.release();
-                    // res.status(200).json(results);
+                    res.status(200).json(results);
                     req.results = results;
                     next();
                 } else {

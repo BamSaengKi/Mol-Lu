@@ -12,8 +12,9 @@ function Main() {
         const fetchResults = async () => {
             if (query) {
                 try {
-                    const res = await fetch(`${BASE_URL}/search?q=${query}`);
+                    const res = await fetch(`${BASE_URL}/book?q=${query}`);
                     if (!res.ok) {
+                        console.log(query);
                         throw new Error("Newtork response was not ok");
                     }
                     const name = await res.json();
