@@ -8,26 +8,23 @@ function SignIn() {
     const navigate = useNavigate();
     const [customerID, setCustomerID] = useState("");
     const [customerPassword, setCustomerPassword] = useState("");
-    const setCustomerIDHandler = (e) => {
-        setCustomerID(e.target.value);
-    };
-    const setCustomerPasswordHandler = (e) => {
-        setCustomerPassword(e.target.value);
-    };
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-
         try {
-            const postData = {
+            const getData = {
                 customerID: customerID,
                 customerPassword: customerPassword,
             };
-            const res = await axios.post(`${BASE_URL}/users`, postData);
-            if (res.status(200)) {
+            const response = await axios.post(`${BASE_URL}/users/login`, getData);
+            if (response.status === 200) {
+                console.log("성공!", response.data);
                 navigate("/main");
+            } else {
+                console.log("실패", response, BASE_URL, getData);
             }
         } catch (error) {
+            console.log(error);
             return error;
         }
     };
@@ -39,13 +36,13 @@ function SignIn() {
                         type="text"
                         placeholder="ID"
                         className="SignIn_Main_Input"
-                        onChange={setCustomerIDHandler}
+                        onChange={(e) => setCustomerID(e.target.value)}
                     />
                     <input
                         type="password"
                         placeholder="PASSWORD"
                         className="SignIn_Main_Input"
-                        onChange={setCustomerPasswordHandler}
+                        onChange={(e) => setCustomerPassword(e.target.value)}
                     />
                     <button
                         type="submit"

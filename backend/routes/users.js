@@ -37,37 +37,38 @@ router.post("/", (req, res, next) => {
     });
 });
 
-// 유저 검색
-router.get(
-    "/",
+// 로그인
+router.post(
+    "/login",
     function (req, res, next) {
         const body = req.body;
         const customerID = body.customerID;
         const customerPassword = body.customerPassword;
+        const sql = `
+        SELECT 
+            *
+        FROM
+            tbCustomer tbc
+        WHERE
+            customerID = ?
+        AND
+            customerPassword = ? ;
+      `;
         pool.getConnection((err, conn) => {
             if (err) {
                 console.log("DB");
                 throw err;
             }
-            const sql = `
-        SELECT 
-            name,
-            customerID,
-            customerPassword
-        FROM
-            tbCustomer tbc
-        WHERE
-            tbc.name LIKE ?
-        OR
-            tbc.customerID LIKE ? ;
-      `;
+
             conn.query(sql, [customerID, customerPassword], (err, results) => {
                 if (!err) {
-                    console.log(query);
-                    console.log(results);
-                    conn.release();
-                    req.results = results;
-                    next();
+                    if (results.length === 0) {
+                        console.log("failed", customerID, customerPassword);
+                        return res.status(400).json({ message: "Invalid ID or Password" });
+                    } else {
+                        console.log("Success", results);
+                        return res.status(200).json({ message: "로그인 완료" });
+                    }
                 } else {
                     console.log("HERE");
                     return err;

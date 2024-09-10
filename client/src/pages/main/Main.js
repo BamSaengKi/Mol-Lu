@@ -8,6 +8,10 @@ function Main() {
     const [results, setResults] = useState([]);
     const query = location.state?.query || "";
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    };
+
     useEffect(() => {
         const fetchResults = async () => {
             if (query) {
@@ -54,6 +58,7 @@ function Main() {
                     className="search_area"
                     action=""
                     method="get"
+                    onSubmit={handleSubmit}
                 >
                     <input
                         className="main_search_box"
@@ -102,16 +107,27 @@ function Main() {
                         </tr>
                     </thead>
                     <tbody>
-                        {results.map((d, i) => (
-                            <tr key={i}>
-                                <td>{d.bookID}</td>
-                                <td>{d.bookName}</td>
-                                <td>{d.author}</td>
-                                <td>{d.price}</td>
-                                <td>{d.stock}</td>
-                                <td>{d.url}</td>
+                        {results.length >= 1 ? (
+                            results.map((d, i) => (
+                                <tr key={i}>
+                                    <td>{d.bookID}</td>
+                                    <td>{d.bookName}</td>
+                                    <td>{d.author}</td>
+                                    <td>{d.price}</td>
+                                    <td>{d.stock}</td>
+                                    <td>{d.url}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td
+                                    colSpan={6}
+                                    align="center"
+                                >
+                                    몰?루
+                                </td>
                             </tr>
-                        ))}
+                        )}
 
                         {/* {results.length > 0 ? (
                             <>

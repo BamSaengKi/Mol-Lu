@@ -56,36 +56,7 @@ function SignUp() {
                         autoComplete="off"
                         onChange={(e) => setCustomerPassword(e.target.value)}
                     />
-                    {/* <input
-                        type="text"
-                        placeholder="POST NAME"
-                        className="SignUp_Main_Input"
-                    />
-                    <input
-                        type="text"
-                        placeholder="ADRESS"
-                        className="SignUp_Main_Input"
-                    />
-                    <input
-                        type="text"
-                        placeholder="DETAIL ADRESS"
-                        className="SignUp_Main_Input"
-                    />
-                    <input
-                        type="text"
-                        placeholder="CREDIT CARD NUMBER"
-                        className="SignUp_Main_Input"
-                    />
-                    <input
-                        type="text"
-                        placeholder="CREDIT CARD DATE"
-                        className="SignUp_Main_Input"
-                    />
-                    <input
-                        type="text"
-                        placeholder="CREDIT CARD KINDS"
-                        className="SignUp_Main_Input"
-                    /> */}
+
                     <button
                         type="submit"
                         className="SignUp_Main_Input"
