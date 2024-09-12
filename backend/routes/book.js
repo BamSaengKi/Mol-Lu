@@ -40,15 +40,13 @@ router.post("/", (req, res, next) => {
 });
 
 // 도서 검색
-router.get(
-    "/",
-    function (req, res, next) {
-        const query = req.query.q;
-        pool.getConnection((err, conn) => {
-            if (err) {
-                throw err;
-            }
-            const sql = `
+router.get("/book_search", function (req, res, next) {
+    const query = req.query.q;
+    pool.getConnection((err, conn) => {
+        if (err) {
+            throw err;
+        }
+        const sql = `
             SELECT
                 bookID,
                 bookName,
@@ -65,26 +63,19 @@ router.get(
             OR
                 tbb.author LIKE ?;
         `;
-            conn.query(sql, [`%${query}%`, `%${query}%`, `%${query}%`], (err, results) => {
-                if (!err) {
-                    console.log(query);
-                    console.log(results);
-                    conn.release();
-                    res.status(200).json(results);
-                    req.results = results;
-                    next();
-                } else {
-                    return err;
-                }
-            });
+        conn.query(sql, [`%${query}%`, `%${query}%`, `%${query}%`], (err, results) => {
+            if (!err) {
+                console.log(query);
+                console.log(results);
+                conn.release();
+                res.status(200).json(results);
+                req.results = results;
+            } else {
+                return err;
+            }
         });
-    },
-    (req, res) => {
-        console.log("여긴 넥스트에요");
-
-        res.send(req.results);
-    }
-);
+    });
+});
 
 // 도서 상세
 router.get("/:book_id", function (req, res, next) {

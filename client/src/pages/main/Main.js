@@ -16,9 +16,10 @@ function Main() {
         const fetchResults = async () => {
             if (query) {
                 try {
-                    const res = await fetch(`${BASE_URL}/book?q=${query}`);
+                    const res = await fetch(`${BASE_URL}/book/book_search?q=${query}`);
                     if (!res.ok) {
                         console.log(query);
+                        console.log("안댔어");
                         throw new Error("Newtork response was not ok");
                     }
                     const name = await res.json();
@@ -30,6 +31,7 @@ function Main() {
         };
         fetchResults();
     }, [query]);
+
     // useEffect(() => {
     //     const fetchData = async () => {
     //         if (dataa) {
