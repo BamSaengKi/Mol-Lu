@@ -5,30 +5,29 @@ const pool = require("../config/DbConfig");
 // 주문 등록
 router.post("/", (req, res, next) => {
     const body = req.body;
-    const orderNum = body.orderNum;
     const tbCustomer_ID = body.tbCustomer_ID;
     const postNum = body.postNum;
     const address = body.address;
     const detailAddress = body.detailAddress;
     const creaditNum = body.creaditNum;
-    const creaditDate = body.creaditDate;
+    const creaditDate = body.acreaditDate;
     const creaditkinds = body.creaditkinds;
     const sql = `
         INSERT INTO 
             mollu.tbOrders
-            (orderNum, tbCustomer_ID, postNum, address, detailAddress, creaditNum, creaditDate, creaditkinds)
+            (tbCustomer_ID, postNum, address, detailAddress, creaditNum, creaditDate, creaditkinds)
         VALUES
-            (?,?,?,?,?,?,?,?);
+            (?,?,?,?,?,?,?);
         `;
 
     pool.getConnection((err, conn) => {
         if (err) {
             res.send(err);
         } else {
-            console.log("DB연결");
+            console.log("DB연결", body);
             conn.query(
                 sql,
-                [orderNum, tbCustomer_ID, postNum, address, detailAddress, creaditNum, creaditDate, creaditkinds],
+                [tbCustomer_ID, postNum, address, detailAddress, creaditNum, creaditDate, creaditkinds],
                 (err2, results) => {
                     if (!err2) {
                         console.log(body);
@@ -45,9 +44,9 @@ router.post("/", (req, res, next) => {
 });
 
 // 주문 조회
-router.get("/", (req, res, next) => {
-    const body = req.body;
-    const tbCustomer_ID = body.tbCustomer_ID;
+router.get("/search", (req, res, next) => {
+    const query = req.query;
+    const tbCustomer_ID = query.tbCustomer_ID;
     const sql = `
         SELECT 
             orderNum, tbCustomer_ID, postNum, address, 
@@ -68,12 +67,13 @@ router.get("/", (req, res, next) => {
 
         conn.query(sql, [tbCustomer_ID], (err2, results) => {
             if (!err2) {
-                console.log(body);
+                console.log(tbCustomer_ID);
+                console.log(query);
                 console.log(results);
                 conn.release();
                 res.send(results);
             } else {
-                console.log(body, err2);
+                console.log(query, err2);
                 return err2;
             }
         });
