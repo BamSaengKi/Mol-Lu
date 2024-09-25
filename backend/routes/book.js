@@ -77,10 +77,10 @@ router.get("/book_search", function (req, res, next) {
     });
 });
 
-// 도서 상세
-router.get("/:book_id", function (req, res, next) {
-    res.send(req.params);
-});
+// // 도서 상세
+// router.get("/:book_id", function (req, res, next) {
+//     res.send(req.params);
+// });
 
 // 도서 정보 변경
 router.put("/", (req, res) => {
