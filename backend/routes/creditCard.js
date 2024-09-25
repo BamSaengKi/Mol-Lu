@@ -79,7 +79,7 @@ router.put("/", (req, res, next) => {
     // const creditCardDate = body.creditCardDate;
     // const creditCardKinds = body.creditCardKinds;
     const customerID = body.customerID;
-    const updatedData = body.req;
+    const updatedData = req.body;
     const exitingSql = `
         SELECT 
             creditCardNum, creditCardDate, creditCardKinds
@@ -116,10 +116,10 @@ router.put("/", (req, res, next) => {
 
                 conn.query(
                     sql,
-                    [updatedData.creditCardNum, updatedData.creditCardDate, updatedData.creditCardKinds],
+                    [updatedCard.creditCardNum, updatedCard.creditCardDate, updatedCard.creditCardKinds, customerID],
                     (err3, results2) => {
-                        if (err3) {
-                            console.log("SUCCESS", body, updatedData);
+                        if (!err3) {
+                            console.log("SUCCESS", body);
                             console.log(results2);
                             conn.release();
                             res.send(results2);
@@ -131,6 +131,34 @@ router.put("/", (req, res, next) => {
                 );
             } else {
                 console.log("PREV_DATA_LOAD_FAIL", body);
+                throw err2;
+            }
+        });
+    });
+});
+
+router.delete("/", (req, res, next) => {
+    const body = req.body;
+    const customerID = body.customerID;
+    const sql = `
+        DELETE FROM
+            mollu.tbCreditCard
+        WHERE
+            customerID = ?
+    `;
+
+    pool.getConnection((err, conn) => {
+        if (err) {
+            throw err;
+        }
+        conn.query(sql, [customerID], (err2, results) => {
+            if (!err2) {
+                console.log("SUCCESS", body, customerID);
+                console.log(results);
+                conn.release();
+                res.send(results);
+            } else {
+                console.log("FAIL", body, customerID);
                 throw err2;
             }
         });

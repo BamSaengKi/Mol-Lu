@@ -17,6 +17,7 @@ var basketRouter = require("./routes/basket");
 var addressRouter = require("./routes/customerAddress");
 var orderDetailRouter = require("./routes/orderDetail");
 var creditCardRouter = require("./routes/creditCard");
+var detailBasketRouter = require("./routes/detailBasket");
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use("/basket", basketRouter);
 app.use("/address", addressRouter);
 app.use("/orderDetail", orderDetailRouter);
 app.use("/creditCard", creditCardRouter);
+app.use("/detailBasket", detailBasketRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
